@@ -1,0 +1,18 @@
+# Not tested while building the project. Set SECRET_KEY before using.
+services:
+  backend:
+    build: ./backend
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY}
+      DATABASE_URL: sqlite:////data/dq.db
+      UPLOAD_DIR: /data/uploads
+    volumes:
+      - dq_data:/data
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+volumes:
+  dq_data:
