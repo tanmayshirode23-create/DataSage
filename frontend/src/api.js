@@ -1,4 +1,5 @@
 // All talking to the backend happens here, so pages stay simple.
+const API_BASE = import.meta.env.VITE_API_URL || "";
 const TOKEN_KEY = "dq_token";
 const USER_KEY = "dq_user";
 
@@ -45,7 +46,7 @@ async function request(path, { method = "GET", json, form, raw } = {}) {
 
   let response;
   try {
-    response = await fetch(`/api${path}`, { method, headers, body });
+    response = await fetch(`${API_BASE}/api${path}`, { method, headers, body });
   } catch {
     throw new Error("Could not reach the server. Is the backend running?");
   }
